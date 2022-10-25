@@ -1,0 +1,81 @@
+@import url(./root.css);
+
+.SearchMenu__container {
+  background-color: var(--main-color);
+  color: var(--text-main-color);
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-side-component);
+  height: var(--full-height);
+  justify-content: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.SearchMenu__container hr {
+  width: 100%;
+}
+
+.SearchMenu__container .title h2,
+.SearchMenu__container .featured h2 {
+  text-align: var(--text-center);
+  font-size: var(--title-size);
+}
+
+.SearchMenu__container input,
+.SearchMenu__container button {
+  background: var(--transparent);
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  border: 0.5px solid var(--gray);
+  color: var(--text-main-color);
+}
+
+.SearchMenu__container input {
+  padding: var(--padding-inputs);
+}
+
+.SearchMenu__container #search::placeholder {
+  margin-left: 20px;
+  width: fit-content;
+}
+
+#search {
+  background-image: url(../assets/icons/search.svg);
+  background-repeat: no-repeat;
+  background-position: 1%;
+  background-size: 15px;
+}
+
+.title h2 {
+  font-size: var(--title-size);
+  text-align: var(--text-center);
+}
+
+.SearchMenu__container p {
+  font-size: var(--text-size);
+  text-align: var(--text-justify);
+}
+
+.featured {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.featured button,
+#seach_button {
+  padding: var(--padding-buttons);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button_active,
+#seach_button:active {
+  background-color: var(--green) !important ;
+  color: var(--white) !important ;
+}
