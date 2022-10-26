@@ -1,0 +1,44 @@
+@import url(../styles/root.css);
+
+.modal {
+  z-index: 99999;
+  position: fixed;
+  top: 50%;
+  left: 30%;
+  background: #130f26;
+  color: white;
+  width: 551px;
+  padding: 48px;
+  border-radius: 5px;
+  animation-name: modalInit;
+  animation-duration: 900ms;
+}
+
+.green_button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 192px;
+  height: 56px;
+  justify-content: center;
+  background-color: var(--green);
+  border: none;
+  border-radius: 4px;
+  font-size: var(--title-size);
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.green_button:active {
+  background-color: var(--purple);
+}
+
+@keyframes modalInit {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

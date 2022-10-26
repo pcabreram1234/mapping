@@ -8,8 +8,9 @@
   padding: var(--padding-side-component);
   height: var(--full-height);
   justify-content: center;
-  gap: 10px;
+  gap: 0.5rem;
   z-index: 10;
+  overflow: none;
 }
 
 .SearchMenu__container hr {
@@ -78,4 +79,8 @@
 #seach_button:active {
   background-color: var(--green) !important ;
   color: var(--white) !important ;
+}
+
+.slider_container input {
+  width: -webkit-fill-available;
 }

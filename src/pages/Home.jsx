@@ -1,13 +1,15 @@
+import React, { useState } from "react";
 import SearchMenu from "../components/SearchMenu";
 import PopUpModal from "../components/PopUpModal";
 import MapContainer from "../components/Map";
 import "../styles/Home.css";
 const Home = () => {
+  const [showPopUp, setShowPopUp] = useState(false);
   return (
     <div className="home">
-      <SearchMenu />
+      <SearchMenu setShowPopUp={setShowPopUp} />
       <MapContainer />
-      {/* <PopUpModal /> */}
+      {showPopUp && <PopUpModal setShowPopUp={setShowPopUp} />}
     </div>
   );
 };

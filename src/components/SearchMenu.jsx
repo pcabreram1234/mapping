@@ -1,10 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "../styles/SearchMenu.css";
 import RestaurantIcon from "../assets/icons/restaurants.svg";
 import ParksIcon from "../assets/icons/parks.svg";
 import BarsIcon from "../assets/icons/bars.svg";
 
-const SearchMenu = () => {
+const SearchMenu = ({ setShowPopUp }) => {
+  const [radioValue, setRadioValue] = useState([10]);
+
   const handleClick = (el) => {
     el.currentTarget.classList.toggle("button_active");
   };
@@ -46,22 +48,29 @@ const SearchMenu = () => {
         </button>
 
         <div className="slider_container">
-          <h2>Distáncia desde mi posición (10km)</h2>
+          <h2>Distáncia desde mi posición ({radioValue}km)</h2>
           <input
-            type="range"
+            type={"range"}
             name="distance_slider"
             id="distance_slider"
             onChange={(e) => {
-              console.log(e);
+              setRadioValue(e.currentTarget.value);
             }}
             max={100}
-            value={30}
+            defaultValue={radioValue}
           />
         </div>
       </div>
 
       <hr />
-      <button id="seach_button" className="green_button" type="buton">
+      <button
+        id="seach_button"
+        className="green_button"
+        type="buton"
+        onClick={() => {
+          setShowPopUp(true);
+        }}
+      >
         BUSCAR
       </button>
     </aside>
