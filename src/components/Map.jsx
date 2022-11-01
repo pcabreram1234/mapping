@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { initMap } from "../utils/maps";
+import React, { useEffect } from "react";
+import L from "leaflet";
 import "../../node_modules/leaflet/dist/leaflet.css";
 import "../styles/Map.css";
 
-const lat = import.meta.env.VITE_DEFAULT_INIT_LAT;
-const long = import.meta.env.VITE_DEFAULT_INIT_LONG;
-const mapContainer = import.meta.env.VITE_MAP_CONTAINER;
-
-const Map = () => {
-  const [coords, setCoords] = useState([lat, long]);
-
+export default function LeafletMap() {
   useEffect(() => {
-    initMap();
+    map();
+    console.log(mapRef);
   }, []);
 
-  return <div id="map_container"></div>;
-};
+  const map = () => {
+    const mapInstance = L.map("map_container").setView([51.505, -0.09], 13);
+  };
 
-export default Map;
+  return <div id="map_container"></div>;
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SearchMenu from "../components/SearchMenu";
 import PopUpModal from "../components/PopUpModal";
-import Map from "../components/Map";
+import LeafletMap from "../components/Map";
 import "../styles/Home.css";
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
         isReseted={isReseted}
         setIsReseted={setIsReseted}
       />
-      <Map />
+      <LeafletMap />
       {showPopUp && (
         <PopUpModal setShowPopUp={setShowPopUp} setIsReseted={setIsReseted} />
       )}
