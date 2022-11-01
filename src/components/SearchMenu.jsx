@@ -1,15 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/SearchMenu.css";
 import RestaurantIcon from "../assets/icons/restaurants.svg";
 import ParksIcon from "../assets/icons/parks.svg";
 import BarsIcon from "../assets/icons/bars.svg";
 
-const SearchMenu = ({ setShowPopUp }) => {
+const SearchMenu = ({ setShowPopUp, isReseted, setIsReseted }) => {
   const [radioValue, setRadioValue] = useState([10]);
+  const [placeToSearch, setPlaceToSearhc] = useState([]);
+
+  const restBtnRef = useRef();
+  const parksBtnRef = useRef();
+  const barsBtnRef = useRef();
 
   const handleClick = (el) => {
     el.currentTarget.classList.toggle("button_active");
   };
+
+  useEffect(() => {
+    setIsReseted(false);
+  });
+
+  if (isReseted === true) {
+    restBtnRef.current.classList.remove("button_active");
+    parksBtnRef.current.classList.remove("button_active");
+    barsBtnRef.current.classList.remove("button_active");
+    console.log("reset");
+  }
 
   return (
     <aside className="SearchMenu__container">
@@ -22,6 +38,10 @@ const SearchMenu = ({ setShowPopUp }) => {
         <input
           type={"search"}
           id="search"
+          value={placeToSearch}
+          onInput={(e) => {
+            setPlaceToSearhc(e.currentTarget.value);
+          }}
           placeholder="Encuentra espacios para trabajar y descansar"
         />
       </div>
@@ -33,16 +53,16 @@ const SearchMenu = ({ setShowPopUp }) => {
           Selecciona algunos de los marcadores por defecto que hemos
           seleccionado para ti
         </p>
-        <button id="restaurants" onClick={handleClick}>
+        <button ref={restBtnRef} id="restaurants" onClick={handleClick}>
           <img src={RestaurantIcon} />
           Restaurantes
         </button>
 
-        <button className="parks" onClick={handleClick}>
+        <button ref={parksBtnRef} className="parks" onClick={handleClick}>
           <img src={ParksIcon} />
           Parques y sitios al aire libre
         </button>
-        <button className="bars" onClick={handleClick}>
+        <button ref={barsBtnRef} className="bars" onClick={handleClick}>
           <img src={BarsIcon} />
           Bares
         </button>
@@ -65,7 +85,7 @@ const SearchMenu = ({ setShowPopUp }) => {
       <hr />
       <button
         id="seach_button"
-        className="green_button"
+        className="green_button "
         type="buton"
         onClick={() => {
           setShowPopUp(true);

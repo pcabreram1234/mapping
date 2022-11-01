@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/PopUpModal.css";
 
-const PopUpModal = ({ setShowPopUp }) => {
+const PopUpModal = ({ setShowPopUp, setIsReseted }) => {
   return (
     <div className="modal" aria-modal>
       <h2>Ups, no hemos encontrado nada</h2>
@@ -15,6 +15,7 @@ const PopUpModal = ({ setShowPopUp }) => {
         type="button"
         onClick={() => {
           setShowPopUp(false);
+          setIsReseted(true);
         }}
       >
         Cerrar

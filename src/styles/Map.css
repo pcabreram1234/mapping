@@ -12,5 +12,8 @@ body {
   bottom: 0;
   width: 75vw;
   left: 25%;
-  z-index: 200;
+}
+
+#map_container_controls {
+  position: relative;
 }

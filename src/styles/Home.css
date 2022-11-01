@@ -1,4 +1,7 @@
+@import url(../styles//root.css);
+
 .home {
   display: grid;
   grid-template-columns: 25% auto;
+  height: var(--full-height);
 }

@@ -1,15 +1,26 @@
 import React, { useState } from "react";
 import SearchMenu from "../components/SearchMenu";
 import PopUpModal from "../components/PopUpModal";
-import MapContainer from "../components/Map";
+import Map from "../components/Map";
 import "../styles/Home.css";
+
 const Home = () => {
+  /* Modals */
   const [showPopUp, setShowPopUp] = useState(false);
+
+  const [isReseted, setIsReseted] = useState(false);
+
   return (
     <div className="home">
-      <SearchMenu setShowPopUp={setShowPopUp} />
-      <MapContainer />
-      {showPopUp && <PopUpModal setShowPopUp={setShowPopUp} />}
+      <SearchMenu
+        setShowPopUp={setShowPopUp}
+        isReseted={isReseted}
+        setIsReseted={setIsReseted}
+      />
+      <Map />
+      {showPopUp && (
+        <PopUpModal setShowPopUp={setShowPopUp} setIsReseted={setIsReseted} />
+      )}
     </div>
   );
 };
