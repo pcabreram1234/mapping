@@ -1,0 +1,17 @@
+@import url(../styles/root.css);
+
+.locate {
+  position: fixed;
+  top: 90%;
+  z-index: 99999;
+  left: 95%;
+  font-weight: bolder;
+  font-size: large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 40px;
+  border: 1px solid rgb(188, 186, 186);
+  height: 40px;
+}
