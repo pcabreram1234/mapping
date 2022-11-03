@@ -12,6 +12,7 @@ body {
   bottom: 0;
   width: 75vw;
   left: 25%;
+  height: 100vh;
 }
 
 #map_container_controls {

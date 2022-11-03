@@ -3,11 +3,15 @@ import "../styles/SearchMenu.css";
 import RestaurantIcon from "../assets/icons/restaurants.svg";
 import ParksIcon from "../assets/icons/parks.svg";
 import BarsIcon from "../assets/icons/bars.svg";
+import { containsCoordinate } from "ol/extent";
 
-const SearchMenu = ({ setShowPopUp, isReseted, setIsReseted }) => {
+const API_URL = import.meta.env.VITE_API_MAP_URL;
+
+const SearchMenu = ({ isReseted, setIsReseted }) => {
   const [radioValue, setRadioValue] = useState([10]);
-  const [placeToSearch, setPlaceToSearhc] = useState([]);
-
+  const [placeToSearch, setPlaceToSearch] = useState([]);
+  const [isClicked, setIsClicked] = useState(false);
+  const [placeFounded, setPlaceFounded] = useState([]);
   const restBtnRef = useRef();
   const parksBtnRef = useRef();
   const barsBtnRef = useRef();
@@ -16,9 +20,33 @@ const SearchMenu = ({ setShowPopUp, isReseted, setIsReseted }) => {
     el.currentTarget.classList.toggle("button_active");
   };
 
+  const fetchData = (input, API) => {
+    const params = {
+      q: input,
+      format: "json",
+      addressdetails: 1,
+      polygon_geojson: 0,
+    };
+    const queryString = new URLSearchParams(params).toString();
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    fetch(`${API}${queryString}`, requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        console.log(JSON.parse(result));
+        setPlaceFounded(JSON.parse(result));
+      });
+  };
+
+  if (isClicked === true) {
+    setIsClicked(false);
+  }
+
   useEffect(() => {
     setIsReseted(false);
-  });
+  }, []);
 
   if (isReseted === true) {
     restBtnRef.current.classList.remove("button_active");
@@ -40,7 +68,8 @@ const SearchMenu = ({ setShowPopUp, isReseted, setIsReseted }) => {
           id="search"
           value={placeToSearch}
           onInput={(e) => {
-            setPlaceToSearhc(e.currentTarget.value);
+            setPlaceToSearch(e.currentTarget.value);
+            fetchData(placeToSearch, API_URL);
           }}
           placeholder="Encuentra espacios para trabajar y descansar"
         />
@@ -88,7 +117,7 @@ const SearchMenu = ({ setShowPopUp, isReseted, setIsReseted }) => {
         className="green_button "
         type="buton"
         onClick={() => {
-          setShowPopUp(true);
+          setIsClicked(true);
         }}
       >
         BUSCAR
