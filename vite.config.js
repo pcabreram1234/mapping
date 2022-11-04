@@ -6,5 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     watch: true,
+    host: "localhost",
+    port: 8089,
+    cors: true,
+    open: true,
   },
 });

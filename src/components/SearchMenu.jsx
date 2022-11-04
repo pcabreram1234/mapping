@@ -3,15 +3,16 @@ import "../styles/SearchMenu.css";
 import RestaurantIcon from "../assets/icons/restaurants.svg";
 import ParksIcon from "../assets/icons/parks.svg";
 import BarsIcon from "../assets/icons/bars.svg";
-import { containsCoordinate } from "ol/extent";
 
 const API_URL = import.meta.env.VITE_API_MAP_URL;
 
 const SearchMenu = ({ isReseted, setIsReseted }) => {
   const [radioValue, setRadioValue] = useState([10]);
-  const [placeToSearch, setPlaceToSearch] = useState([]);
+  const [placeToSearch, setPlaceToSearch] = useState("");
   const [isClicked, setIsClicked] = useState(false);
   const [placeFounded, setPlaceFounded] = useState([]);
+  const [listItems, setListItems] = useState([]);
+
   const restBtnRef = useRef();
   const parksBtnRef = useRef();
   const barsBtnRef = useRef();
@@ -40,6 +41,38 @@ const SearchMenu = ({ isReseted, setIsReseted }) => {
       });
   };
 
+  const clearAlllist = () => {
+    setPlaceFounded([]);
+    setListItems([]);
+  };
+
+  const generateList = () => {
+    if (placeToSearch.trim() === "") {
+      setListItems("");
+    }
+
+    if (placeToSearch.trim() !== "" && placeFounded.length > 0) {
+      const itemsToInsert = [];
+      placeFounded.forEach((place) => {
+        itemsToInsert.push(
+          <li
+            value={place.name}
+            key={place.code}
+            onClick={(e) => {
+              setPlaceToSearch(e.currentTarget.innerText.toString());
+              clearAlllist();
+              console.log(e.currentTarget.innerText);
+            }}
+            role={"option"}
+          >
+            {place.name}
+          </li>
+        );
+      });
+      setListItems(itemsToInsert);
+    }
+  };
+
   if (isClicked === true) {
     setIsClicked(false);
   }
@@ -55,6 +88,10 @@ const SearchMenu = ({ isReseted, setIsReseted }) => {
     console.log("reset");
   }
 
+  useEffect(() => {
+    generateList();
+  }, [placeFounded]);
+
   return (
     <aside className="SearchMenu__container">
       <div className="title">
@@ -63,16 +100,45 @@ const SearchMenu = ({ isReseted, setIsReseted }) => {
           Findyourplace, te permite buscar e forma rápida restaurantes, parques
           y bares para que puedas descansar o trabajar fuera de casa
         </p>
-        <input
-          type={"search"}
-          id="search"
-          value={placeToSearch}
-          onInput={(e) => {
-            setPlaceToSearch(e.currentTarget.value);
-            fetchData(placeToSearch, API_URL);
-          }}
-          placeholder="Encuentra espacios para trabajar y descansar"
-        />
+        <div className="inputSearchContainer">
+          <input
+            type={"search"}
+            id="search"
+            value={placeToSearch}
+            onInput={(e) => {
+              console.log(e.currentTarget.value);
+              setPlaceToSearch(e.currentTarget.value);
+              let elAc = [];
+              // fetchData(placeToSearch, API_URL);
+              fetch("http://localhost:8089/src/json/contries.json")
+                .then((resp) => resp.json())
+                .then((res) => {
+                  res.forEach((place) => {
+                    if (
+                      place.name
+                        .toLowerCase()
+                        .includes(placeToSearch.toLowerCase().trim())
+                    ) {
+                      elAc.push(place);
+                    }
+                  });
+                  setPlaceFounded(elAc);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }}
+            placeholder="Encuentra espacios para trabajar y descansar"
+          />
+          <ul
+            id="autocompete-results"
+            role={"listbox"}
+            aria-label="Search for a country"
+            className="autocomplete-list"
+          >
+            {listItems}
+          </ul>
+        </div>
       </div>
 
       <hr />

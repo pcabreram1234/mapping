@@ -81,3 +81,32 @@
 .slider_container input {
   width: -webkit-fill-available;
 }
+
+.inputSearchContainer {
+  position: relative;
+}
+
+#autocompete-results {
+  position: absolute;
+  z-index: 99999;
+  background: white;
+
+  list-style: none;
+  margin: auto;
+  left: 0;
+  font-size: 13px;
+  border-radius: 7px;
+  width: -webkit-fill-available;
+}
+
+#autocompete-results li {
+  margin: 4px 0 4px -20px;
+  width: 100%;
+  color: gray;
+  padding: 5px 0;
+}
+
+#autocompete-results li:hover {
+  cursor: pointer;
+  color: black;
+}

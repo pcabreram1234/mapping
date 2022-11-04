@@ -1,0 +1,9 @@
+[
+  { "id": "0", "name": "Profesion" },
+  { "id": "1", "name": "Estudiante" },
+  { "id": "2", "name": "Desarrollador Web" },
+  { "id": "3", "name": "Maestro" },
+  { "id": "4", "name": "Arquitecto" },
+  { "id": "5", "name": "Doctor" },
+  { "id": "6", "name": "Policía" }
+]
