@@ -4,41 +4,42 @@ import RestaurantIcon from "../assets/icons/restaurants.svg";
 import ParksIcon from "../assets/icons/parks.svg";
 import BarsIcon from "../assets/icons/bars.svg";
 
-const API_URL = import.meta.env.VITE_API_MAP_URL;
-
-const SearchMenu = ({ isReseted, setIsReseted }) => {
+const SearchMenu = ({
+  setShowPopUp,
+  setCoords,
+  setPlaceName,
+  setSearchButtonClicked,
+  setCenter,
+}) => {
   const [radioValue, setRadioValue] = useState([10]);
   const [placeToSearch, setPlaceToSearch] = useState("");
-  const [isClicked, setIsClicked] = useState(false);
   const [placeFounded, setPlaceFounded] = useState([]);
   const [listItems, setListItems] = useState([]);
+  const [isPlaceSelected, setIsPlaceSelected] = useState(false);
+  const [placePosition, setPlacePosition] = useState([]);
 
   const restBtnRef = useRef();
   const parksBtnRef = useRef();
   const barsBtnRef = useRef();
 
-  const handleClick = (el) => {
+  const toggleButtonClass = (el) => {
     el.currentTarget.classList.toggle("button_active");
   };
 
-  const fetchData = (input, API) => {
-    const params = {
-      q: input,
-      format: "json",
-      addressdetails: 1,
-      polygon_geojson: 0,
-    };
-    const queryString = new URLSearchParams(params).toString();
-    const requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-    fetch(`${API}${queryString}`, requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        console.log(JSON.parse(result));
-        setPlaceFounded(JSON.parse(result));
-      });
+  const searchHandle = () => {
+    if (isPlaceSelected !== true || placePosition.length === 0) {
+      setShowPopUp(true);
+      restBtnRef.current.classList.remove("button_active");
+      parksBtnRef.current.classList.remove("button_active");
+      barsBtnRef.current.classList.remove("button_active");
+      setCoords([]);
+      setPlaceName([]);
+      setSearchButtonClicked(false);
+    } else {
+      setCoords(placePosition);
+      setSearchButtonClicked(true);
+      setCenter(placePosition);
+    }
   };
 
   const clearAlllist = () => {
@@ -60,8 +61,10 @@ const SearchMenu = ({ isReseted, setIsReseted }) => {
             key={place.code}
             onClick={(e) => {
               setPlaceToSearch(e.currentTarget.innerText.toString());
+              setPlacePosition([place.latitude, place.longitude]);
+              setPlaceName(place.name);
+              setIsPlaceSelected(true);
               clearAlllist();
-              console.log(e.currentTarget.innerText);
             }}
             role={"option"}
           >
@@ -72,21 +75,6 @@ const SearchMenu = ({ isReseted, setIsReseted }) => {
       setListItems(itemsToInsert);
     }
   };
-
-  if (isClicked === true) {
-    setIsClicked(false);
-  }
-
-  useEffect(() => {
-    setIsReseted(false);
-  }, []);
-
-  if (isReseted === true) {
-    restBtnRef.current.classList.remove("button_active");
-    parksBtnRef.current.classList.remove("button_active");
-    barsBtnRef.current.classList.remove("button_active");
-    console.log("reset");
-  }
 
   useEffect(() => {
     generateList();
@@ -106,12 +94,10 @@ const SearchMenu = ({ isReseted, setIsReseted }) => {
             id="search"
             value={placeToSearch}
             onInput={(e) => {
-              console.log(e.currentTarget.value);
               setPlaceToSearch(e.currentTarget.value);
               let elAc = [];
-              // fetchData(placeToSearch, API_URL);
-              fetch("http://localhost:8089/src/json/contries.json")
-                .then((resp) => resp.json())
+              fetch("http://localhost:8089/src/json/countries.json")
+                .then((res) => res.json())
                 .then((res) => {
                   res.forEach((place) => {
                     if (
@@ -148,16 +134,16 @@ const SearchMenu = ({ isReseted, setIsReseted }) => {
           Selecciona algunos de los marcadores por defecto que hemos
           seleccionado para ti
         </p>
-        <button ref={restBtnRef} id="restaurants" onClick={handleClick}>
+        <button ref={restBtnRef} id="restaurants" onClick={toggleButtonClass}>
           <img src={RestaurantIcon} />
           Restaurantes
         </button>
 
-        <button ref={parksBtnRef} className="parks" onClick={handleClick}>
+        <button ref={parksBtnRef} className="parks" onClick={toggleButtonClass}>
           <img src={ParksIcon} />
           Parques y sitios al aire libre
         </button>
-        <button ref={barsBtnRef} className="bars" onClick={handleClick}>
+        <button ref={barsBtnRef} className="bars" onClick={toggleButtonClass}>
           <img src={BarsIcon} />
           Bares
         </button>
@@ -182,9 +168,7 @@ const SearchMenu = ({ isReseted, setIsReseted }) => {
         id="seach_button"
         className="green_button "
         type="buton"
-        onClick={() => {
-          setIsClicked(true);
-        }}
+        onClick={searchHandle}
       >
         BUSCAR
       </button>
