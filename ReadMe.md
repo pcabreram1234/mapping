@@ -34,6 +34,11 @@ Para comenzar a correr este proyecto solo basta con ejectuar los siguientes paso
 
 Para preparar el proyecto para ser subido a producción solo debe ejecutar el comando `npm run build`
 
+### Variables de entorno.
+- **VITE_GOOGLE_URL_MAP**: URL del mapa a utilizar (Google, OpenStreetMap, etc...).
+- **VITE_DEFAULT_INIT_LAT**: Latitud de la posición por defecto en la cual el mapa se renderizará por primera vez.
+- **VITE_DEFAULT_INIT_LONG**: Longitud de la posición por defecto en la cual el mapa se renderizará por primera vez.
+
 ## Colaboración
 
 Cualquier comentario, retroalimentación o problema siéntase libre de hacer un fork a este repositorio y enviarme una solicitud de extracción. Si consideras que este repositorio puede serte util por favor no desdes en darme una ⭐. Lo agradecería bastante.
