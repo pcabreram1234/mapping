@@ -11,6 +11,7 @@ const LocationMarker = () => {
     locationfound(e) {
       setPosition(e.latlng);
       map.flyTo(e.latlng, map.getZoom());
+      map.setView(e.latlng, 15);
     },
     locationerror(e) {
       console.log(e.message);
