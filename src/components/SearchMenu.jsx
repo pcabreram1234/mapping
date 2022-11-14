@@ -21,17 +21,23 @@ const SearchMenu = ({
   const restBtnRef = useRef();
   const parksBtnRef = useRef();
   const barsBtnRef = useRef();
+  const rangeInputRef = useRef();
 
   const toggleButtonClass = (el) => {
     el.currentTarget.classList.toggle("button_active");
   };
 
   const searchHandle = () => {
-    if (isPlaceSelected !== true || placePosition.length === 0) {
+    if (
+      isPlaceSelected !== true ||
+      placePosition.length === 0 ||
+      placeToSearch === ""
+    ) {
       setShowPopUp(true);
       restBtnRef.current.classList.remove("button_active");
       parksBtnRef.current.classList.remove("button_active");
       barsBtnRef.current.classList.remove("button_active");
+      setRadioValue(20);
       setCoords([]);
       setPlaceName([]);
       setSearchButtonClicked(false);
@@ -39,6 +45,7 @@ const SearchMenu = ({
       setCoords(placePosition);
       setSearchButtonClicked(true);
       setCenter(placePosition);
+      setShowPopUp(false);
     }
   };
 
@@ -154,11 +161,12 @@ const SearchMenu = ({
             type={"range"}
             name="distance_slider"
             id="distance_slider"
+            ref={rangeInputRef}
             onChange={(e) => {
               setRadioValue(e.currentTarget.value);
             }}
             max={100}
-            defaultValue={radioValue}
+            value={radioValue}
           />
         </div>
       </div>

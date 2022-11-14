@@ -12,6 +12,7 @@ export default function LeafletMap({
   placeName,
   searchButtonClicked,
   center,
+  setSearchButtonClicked,
 }) {
   const [showPopUp, setShowPopUp] = useState(false);
 
@@ -41,8 +42,13 @@ export default function LeafletMap({
       </button>
 
       {showPopUp && <LocationMarker />}
-      {coords.length > 0 && searchButtonClicked === true && (
-        <PlaceFoundedLocation coords={coords} placeName={placeName} />
+      {coords.length > 0 && (
+        <PlaceFoundedLocation
+          coords={coords}
+          placeName={placeName}
+          searchButtonClicked={searchButtonClicked}
+          setSearchButtonClicked={setSearchButtonClicked}
+        />
       )}
     </MapContainer>
   );

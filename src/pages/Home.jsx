@@ -30,6 +30,7 @@ const Home = () => {
         coords={coords}
         placeName={placeName}
         searchButtonClicked={searchButtonClicked}
+        setSearchButtonClicked={setSearchButtonClicked}
         center={center}
       />
       {showPopUp && (
