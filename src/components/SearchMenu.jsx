@@ -105,7 +105,7 @@ const SearchMenu = ({
             onInput={(e) => {
               setPlaceToSearch(e.currentTarget.value);
               let elAc = [];
-              fetch(`${HOST}/countries.json`)
+              fetch(`${HOST}/json/countries.json`)
                 .then((res) => res.json())
                 .then((res) => {
                   res.forEach((place) => {
