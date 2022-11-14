@@ -60,12 +60,18 @@
 .featured {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
-.featured button,
-#seach_button {
+.featured button:not(#seach_button) {
   padding: var(--padding-buttons);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+#seach_button {
   cursor: pointer;
   display: flex;
   align-items: center;

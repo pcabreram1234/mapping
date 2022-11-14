@@ -171,17 +171,16 @@ const SearchMenu = ({
             value={radioValue}
           />
         </div>
+        <hr />
+        <button
+          id="seach_button"
+          className="green_button "
+          type="buton"
+          onClick={searchHandle}
+        >
+          BUSCAR
+        </button>
       </div>
-
-      <hr />
-      <button
-        id="seach_button"
-        className="green_button "
-        type="buton"
-        onClick={searchHandle}
-      >
-        BUSCAR
-      </button>
     </aside>
   );
 };
