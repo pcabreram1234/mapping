@@ -38,6 +38,7 @@ Para preparar el proyecto para ser subido a producción solo debe ejecutar el co
 - **VITE_GOOGLE_URL_MAP**: URL del mapa a utilizar (Google, OpenStreetMap, etc...).
 - **VITE_DEFAULT_INIT_LAT**: Latitud de la posición por defecto en la cual el mapa se renderizará por primera vez.
 - **VITE_DEFAULT_INIT_LONG**: Longitud de la posición por defecto en la cual el mapa se renderizará por primera vez.
+- **VITE_HOST**: Ruta del servidor en el cual esta corriendo la aplicación (localhost cuando esta corriendo en un entorno local).
 
 ## Colaboración
 

@@ -4,6 +4,8 @@ import RestaurantIcon from "../assets/icons/restaurants.svg";
 import ParksIcon from "../assets/icons/parks.svg";
 import BarsIcon from "../assets/icons/bars.svg";
 
+const HOST = import.meta.env.VITE_HOST;
+
 const SearchMenu = ({
   setShowPopUp,
   setCoords,
@@ -103,7 +105,7 @@ const SearchMenu = ({
             onInput={(e) => {
               setPlaceToSearch(e.currentTarget.value);
               let elAc = [];
-              fetch("http://localhost:8089/src/json/countries.json")
+              fetch(`${HOST}/countries.json`)
                 .then((res) => res.json())
                 .then((res) => {
                   res.forEach((place) => {
